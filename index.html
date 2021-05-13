@@ -5,88 +5,25 @@
   </head>
   <body>
     Check the console!
-    <script>
-      const list = [1, 2, 3];
-
-      // es5
-      for (var i = 0; i < list.length; i++) {
-        console.log(list[i]);
-      }
-      const str = 'abc';
-      for (var i = 0; i < str.length; i++) {
-        console.log(str[i]);
-      }
-
-      // es6+
-      for (const a of list) {
-        console.log(a);
-      }
-      for (const a of str) {
-        console.log(a);
-      }
-    </script>
 
     <script>
-      console.log('Arr --------------------');
-      const arr = [1, 2, 3];
-      for (const a of arr) console.log(a);
-
-      console.log('Set --------------------');
-      const set = new Set([1, 2, 3]);
-      for (const a of set) console.log(a);
-
-      console.log('Map --------------------');
-      const map = new Map([["a", 1], ["b", 2], ["c", 3]]);
-      for (const a of map) console.log(a);
-      for (const a of map.keys()) console.log(a);
-      for (const a of map.values()) console.log(a);
-      for (const a of map.entries()) console.log(a);
-    </script>
-
-    <script>
-      console.clear();
-      // 사용자 정의 이터러블
-      const iterable = {
-        [Symbol.iterator]() {
-          let i = 3;
-          return {
-            next() {
-              return i === 0 ? { value: undefined, done: true } : { value: i--, done: false };
-            },
-            [Symbol.iterator]() {
-              return this;
-            }
-          }
-        }
+      // 제너레이터/이터레이터
+      // 제너레이터: 이터레이터이자 이터러블을 생성하는 함수
+      function* gen() {
+        yield 1;
+        yield 2;
+        yield 3;
+        return 100;
       }
 
-      let iterator = iterable[Symbol.iterator]();
+      let iter = gen();
+      console.log(iter[Symbol.iterator]() === iter);
+      console.log(iter.next());
+      console.log(iter.next());
+      console.log(iter.next());
+      console.log(iter.next());
 
-      console.log(iterator.next());
-      console.log(iterator.next());
-      console.log(iterator.next());
-      console.log(iterator.next());
-      for (const a of iterator) console.log(a);
-
-      // const arr2 = [1, 2, 3];
-      // let iter2 = arr2[Symbol.iterator]();
-      // console.log(iter2[Symbol.iterator]() === iter2);
-      // for (const a of iter2) console.log(a);
-
-      for (const a of document.querySelectorAll('*')) console.log(a);
-      const all = document.querySelectorAll('*');
-      let iter3 = all[Symbol.iterator]();
-      console.log(iter3.next());
-      console.log(iter3.next());
-      console.log(iter3.next());
-    </script>
-
-    <script>
-      // 전개 연산자
-      console.clear();
-      const a = [1, 2];
-      // a[Symbol.iterator] = null;
-      console.log([...a, ...[3, 4]]);
+      for (const a of gen()) console.log(a);
     </script>
   </body>
 </html>
