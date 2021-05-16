@@ -7,69 +7,30 @@
     Check the console!
 
     <script>
-      // 제너레이터/이터레이터
-      // 제너레이터: 이터레이터이자 이터러블을 생성하는 함수
-      function* gen() {
-        yield 1;
-        yield 2;
-        yield 3;
-        return 100;
-      }
-
-      let iter = gen();
-      console.log(iter[Symbol.iterator]() === iter);
-      console.log(iter.next());
-      console.log(iter.next());
-      console.log(iter.next());
-      console.log(iter.next());
-
-      for (const a of gen()) console.log(a);
+      const products = [
+        { name: '반팔티', price: 15000 },
+        { name: '긴팔티', price: 20000 },
+        { name: '핸드폰케이스', price: 15000 },
+        { name: '후드티', price: 30000 },
+        { name: '바지', price: 25000 }
+      ];
     </script>
 
     <script>
-      console.clear();
-      // odds
-
-      function *infinity(i = 0) {
-        while (true) yield i++;
-      }
-
-      function *limit(l, iter) {
-        for (const a of iter) {
-          yield a;
-          if (a === l) return;
+      // map
+      const map = (fn, iter) => {
+        let res = [];
+        for (const p of iter) {
+          res.push(fn(p))
         }
+        return res;
       }
 
-      function *odds(l) {
-        for (const i of limit(l, infinity(1))) {
-          if (i % 2) yield i;
-        }
-      }
-      let iter2 = odds(10);
-      console.log(iter2.next());
-      console.log(iter2.next());
-      console.log(iter2.next());
-      console.log(iter2.next());
-      console.log(iter2.next());
-      console.log(iter2.next());
-    </script>
+      const names = (map(p => p.name, products))
+      console.log(names);
 
-    <script>
-      // for ...of, 전개 연산자, 구조 분해, 나머지 연산자
-      console.clear();
-
-      console.log(...odds(10));
-      console.log([...odds(10), ...odds(20)]);
-
-      const [head, ...tail] = odds(5);
-      console.log(head);
-      console.log(tail);
-
-      const [a, b, ...rest] = odds(10);
-      console.log(a);
-      console.log(b);
-      console.log(rest);
+      const prices = (map(p => p.price, products))
+      console.log(prices);
     </script>
   </body>
 </html>
