@@ -93,5 +93,35 @@
         yield 5;
       } ()))
     </script>
+
+    <script>
+      // reduce
+      console.clear();
+      const nums = [1, 2, 3, 4, 5];
+
+      let total = 0;
+      for (const n of nums) {
+        console.log(total, n);
+        total += n;
+      }
+      console.log(total);
+
+      const reduce = (fn, iter, acc) => {
+        if (!acc) {
+          iter = iter[Symbol.iterator]();
+          acc = iter.next().value;
+        }
+
+        for (const a of iter) {
+          acc = fn(acc, a);
+        }
+        return acc;
+      }
+
+      const add = (a, b) => a + b;
+
+      console.log(reduce(add, nums, 0));
+      console.log(reduce(add, nums));
+    </script>
   </body>
 </html>
