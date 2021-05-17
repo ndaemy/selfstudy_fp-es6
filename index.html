@@ -32,5 +32,31 @@
       const prices = (map(p => p.price, products))
       console.log(prices);
     </script>
+
+    <script>
+      // 이터러블 프로토콜을 따른 map의 다형성
+      console.log(map(el => el.nodeName, document.querySelectorAll('*')));
+
+      // const it = document.querySelectorAll('*')[Symbol.iterator]();
+      // console.log(it.next());
+      // console.log(it.next());
+      // console.log(it.next());
+      // console.log(it.next());
+      // console.log(it.next());
+      // console.log(it.next());
+
+      function *gen() {
+        yield 2;
+        yield 3;
+        yield 4;
+      }
+
+      console.log(map(a => a * a, gen()));
+
+      let m = new Map();
+      m.set('a', 10);
+      m.set('b', 20);
+      console.log(new Map(map(([k, a]) => [k, a * 2], m)));
+    </script>
   </body>
 </html>
