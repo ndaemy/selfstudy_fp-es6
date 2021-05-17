@@ -107,7 +107,7 @@
       console.log(total);
 
       const reduce = (fn, iter, acc) => {
-        if (!acc) {
+        if (acc === undefined) {
           iter = iter[Symbol.iterator]();
           acc = iter.next().value;
         }
@@ -122,6 +122,11 @@
 
       console.log(reduce(add, nums, 0));
       console.log(reduce(add, nums));
+    </script>
+
+    <script>
+      // reduce 2
+      console.log(reduce((prev, curr) => prev + curr.price, products, 0));
     </script>
   </body>
 </html>
