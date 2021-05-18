@@ -32,5 +32,18 @@
           filter(price => price < 20000,
             map(p => p.price, products))));
     </script>
+
+    <script>
+      // go
+      const go = (...args) => reduce((a, f) => f(a), args);
+
+      go(
+        0,
+        a => a + 1,
+        a => a + 10,
+        a => a + 100,
+        console.log
+      )
+    </script>
   </body>
 </html>
