@@ -53,5 +53,15 @@
 
       console.log(f(0, 1));
     </script>
+
+    <script>
+      go(
+        products,
+        products => filter(p => p.price < 20000, products),
+        products => map(p => p.price, products),
+        products => reduce(add, products),
+        console.log
+      )
+    </script>
   </body>
 </html>
