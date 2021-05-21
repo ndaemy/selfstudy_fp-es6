@@ -55,13 +55,34 @@
     </script>
 
     <script>
+      console.clear();
+      // original code below ---
+      // go(
+      //   products,
+      //   products => filter(p => p.price < 20000, products),
+      //   products => map(p => p.price, products),
+      //   products => reduce(add, products),
+      //   console.log
+      // );
+
       go(
         products,
-        products => filter(p => p.price < 20000, products),
-        products => map(p => p.price, products),
-        products => reduce(add, products),
+        filter(p => p.price < 20000),
+        map(p => p.price),
+        reduce(add),
         console.log
-      )
+      );
+    </script>
+
+    <script>
+      // curry
+      const multi = curry((a, b) => a * b);
+      console.log(multi(3)(2));
+
+      const multi3 = multi(3);
+      console.log(multi3(10));
+      console.log(multi3(5));
+      console.log(multi3(3));
     </script>
   </body>
 </html>
