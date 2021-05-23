@@ -9,93 +9,29 @@
 
     <script>
       const products = [
-        { name: '반팔티', price: 15000 },
-        { name: '긴팔티', price: 20000 },
-        { name: '핸드폰케이스', price: 15000 },
-        { name: '후드티', price: 30000 },
-        { name: '바지', price: 25000 }
+        { name: '반팔티', price: 15000, quantity: 1 },
+        { name: '긴팔티', price: 20000, quantity: 2 },
+        { name: '핸드폰케이스', price: 15000, quantity: 3 },
+        { name: '후드티', price: 30000, quantity: 4 },
+        { name: '바지', price: 25000, quantity: 5 }
       ];
-    </script>
 
-    <script>
       const add = (a, b) => a + b;
 
-      console.log(
-        reduce(
-          add,
-          map(p => p.price,
-            filter(p => p.price < 20000, products))));
+      const sum = curry((f, iter) => go(
+        iter,
+        map(f),
+        reduce(add),
+      ));
 
-      console.log(
-        reduce(
-          add,
-          filter(price => price < 20000,
-            map(p => p.price, products))));
+      // 총 수량
+      const totalQuantity = sum(p => p.quantity);
+      console.log(totalQuantity(products))
+
+      // 총액
+      const totalPrice = sum(p => p.price * p.quantity);
+      console.log(totalPrice(products));
     </script>
 
-    <script>
-      // go, pipe
-      const go = (...args) => reduce((a, f) => f(a), args);
-      const pipe = (f, ...fs) => (...as) => go(f(...as), ...fs);
-
-      go(
-        add(0, 1),
-        a => a + 10,
-        a => a + 100,
-        console.log
-      )
-
-      const f = pipe(
-        (a, b) => a + b,
-        a => a + 10,
-        a => a + 100
-      );
-
-      console.log(f(0, 1));
-    </script>
-
-    <script>
-      console.clear();
-      // original code below ---
-      // go(
-      //   products,
-      //   products => filter(p => p.price < 20000, products),
-      //   products => map(p => p.price, products),
-      //   products => reduce(add, products),
-      //   console.log
-      // );
-
-      const totalPrice = pipe(
-        map(p => p.price),
-        reduce(add)
-      );
-
-      const baseTotalPrice = predi => pipe(
-        filter(predi),
-        totalPrice,
-      )
-
-      go(
-        products,
-        baseTotalPrice(p => p.price < 20000),
-        console.log
-      );
-      go(
-        products,
-        baseTotalPrice(p => p.price >= 20000),
-        console.log
-      );
-    </script>
-
-    <script>
-      // curry
-      const multi = curry((a, b) => a * b);
-      console.log(multi(3)(2));
-
-      const multi3 = multi(3);
-      console.log(multi3(10));
-      console.log(multi3(5));
-      console.log(multi3(3));
-    </script>
   </body>
 </html>
