@@ -5,60 +5,37 @@
     <script src="lib/_fx.js"></script>
   </head>
   <body>
-    <div id="cart"></div>
+    Check the console!
+
     <script>
-      const products = [
-        { name: '반팔티', price: 15000, quantity: 1, is_selected: true },
-        { name: '긴팔티', price: 20000, quantity: 2, is_selected: false },
-        { name: '핸드폰케이스', price: 15000, quantity: 3, is_selected: true },
-        { name: '후드티', price: 30000, quantity: 4, is_selected: false },
-        { name: '바지', price: 25000, quantity: 5, is_selected: false }
-      ];
+      // range
+      const range = l => {
+        const result = [];
+        for (let i = 0; i < l; i++) {
+          result.push(i);
+        }
+        return result;
+      };
 
       const add = (a, b) => a + b;
 
-      const sum = curry((f, iter) => go(
-        iter,
-        map(f),
-        reduce(add),
-      ));
+      const list = range(4);
+      console.log(list);
+      console.log(reduce(add, list));
+    </script>
 
-      // 총 수량
-      const totalQuantity = sum(p => p.quantity);
-      console.log(totalQuantity(products))
+    <script>
+      // 느긋한 L.range
+      const L = {};
+      L.range = function *(l) {
+        for (let i = 0; i < l; i++) {
+          yield i;
+        }
+      };
 
-      // 총액
-      const totalPrice = sum(p => p.price * p.quantity);
-      console.log(totalPrice(products));
-
-      document.querySelector('#cart').innerHTML = `
-        <table>
-          <tr>
-            <th></th>
-            <th>상품 이름</th>
-            <th>가격</th>
-            <th>수량</th>
-            <th>총 가격</th>
-          </tr>
-          ${go(
-            products,
-            sum(p => `
-              <tr>
-                <td><input type="checkbox" ${p.is_selected && 'checked'}></td>
-                <td>${p.name}</td>
-                <td>${p.price}</td>
-                <td><input type="number" value="${p.quantity}"></td>
-                <td>${p.price * p.quantity}</td>
-              </tr>
-            `),
-          )}
-          <tr>
-            <td colspan="3">합계</tdcol>
-            <td>${totalQuantity(filter(p => p.is_selected, products))}</td>
-            <td>${totalPrice(filter(p => p.is_selected, products))}</td>
-          </tr>
-        </table>
-      `;
+      const list2 = L.range(4);
+      console.log(list2);
+      console.log(reduce(add, list2));
     </script>
   </body>
 </html>
