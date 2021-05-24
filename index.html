@@ -37,5 +37,17 @@
       console.log(list2);
       console.log(reduce(add, list2));
     </script>
+
+    <script>
+      // range와 L.range 테스트
+      function test(name, time, f) {
+        console.time(name);
+        while (time--) f();
+        console.timeEnd(name);
+      }
+
+      test('L.range', 10, () => reduce(add, L.range(1000000)));
+      test('range', 10, () => reduce(add, range(1000000)));
+    </script>
   </body>
 </html>
