@@ -8,73 +8,7 @@
     Check the console!
 
     <script>
-      // range
-      const range = l => {
-        const result = [];
-        for (let i = 0; i < l; i++) {
-          result.push(i);
-        }
-        return result;
-      };
-
-      const add = (a, b) => a + b;
-
-      const list = range(4);
-      console.log(list);
-      console.log(reduce(add, list));
-    </script>
-
-    <script>
-      // 느긋한 L.range
-      const L = {};
-      L.range = function *(l) {
-        for (let i = 0; i < l; i++) {
-          yield i;
-        }
-      };
-
-      const list2 = L.range(4);
-      console.log(list2);
-      console.log(reduce(add, list2));
-    </script>
-
-    <script>
-      // range와 L.range 테스트
-      function test(name, time, f) {
-        console.time(name);
-        while (time--) f();
-        console.timeEnd(name);
-      }
-
-      test('L.range', 10, () => reduce(add, L.range(1000000)));
-      test('range', 10, () => reduce(add, range(1000000)));
-      console.clear();
-    </script>
-
-    <script>
-      // take
-      const take = curry((l, iter) => {
-        const res = [];
-        for (const a of iter) {
-          res.push(a);
-          if (res.length === l) return res;
-        }
-      });
-
-      console.time();
-      go(
-        range(1000000),
-        take(5),
-        console.log,
-      );
-      console.timeEnd();
-      console.time();
-      go(
-        L.range(Infinity),
-        take(5),
-        console.log,
-      );
-      console.timeEnd();
+      // lazy evaluation
     </script>
   </body>
 </html>
