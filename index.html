@@ -10,21 +10,25 @@
     <script>
       // lazy evaluation
 
-      // go(
-      //   range(10),
-      //   map(x => x + 10),
-      //   filter(x => x % 2),
-      //   take(2),
-      //   console.log
-      // );
-
+      console.time('');
       go(
-        L.range(10),
+        range(100000),
+        map(x => x + 10),
+        filter(x => x % 2),
+        take(2),
+        console.log
+      );
+      console.timeEnd('');
+
+      console.time('L');
+      go(
+        L.range(100000),
         L.map(x => x + 10),
         L.filter(x => x % 2),
         take(2),
         console.log
       );
+      console.timeEnd('L');
     </script>
   </body>
 </html>
