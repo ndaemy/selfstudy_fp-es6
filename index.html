@@ -10,11 +10,21 @@
     <script>
       // lazy evaluation
 
-      const it = L.map(a => a + 10, [1, 2, 3]);
-      console.log([...it]);
+      go(
+        range(10),
+        map(x => x + 10),
+        filter(x => x % 2),
+        take(2),
+        console.log
+      );
 
-      const it2 = L.filter(a => a % 2, [1, 2, 3]);
-      console.log([...it2]);
+      go(
+        L.range(10),
+        L.map(x => x + 10),
+        L.filter(x => x % 2),
+        take(2),
+        console.log
+      );
     </script>
   </body>
 </html>
