@@ -8,27 +8,12 @@
     Check the console!
 
     <script>
-      // lazy evaluation
-
-      console.time('');
-      go(
-        range(100000),
-        map(x => x + 10),
-        filter(x => x % 2),
-        take(2),
-        console.log
+      const queryStr = pipe(
+        Object.entries,
+        map(([k, v]) => `${k}=${v}`),
+        reduce((a, b) => `${a}&${b}`),
       );
-      console.timeEnd('');
-
-      console.time('L');
-      go(
-        L.range(100000),
-        L.map(x => x + 10),
-        L.filter(x => x % 2),
-        take(2),
-        console.log
-      );
-      console.timeEnd('L');
+      console.log(queryStr({limit: 10, offset: 10, type: 'notice'}))
     </script>
   </body>
 </html>
