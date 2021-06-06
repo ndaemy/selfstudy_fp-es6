@@ -8,48 +8,8 @@
     Check the console!
 
     <script>
-      L.entries = function *(obj) {
-        for (const k in obj) yield [k, obj[k]];
-      }
-
-      const join = curry((sep = ',', iter) => reduce((a, b) => `${a}${sep}${b}`, iter));
-
-      const queryStr = pipe(
-        L.entries,
-        L.map(([k, v]) => `${k}=${v}`),
-        join('&'),
-      );
-      console.log(queryStr({limit: 10, offset: 10, type: 'notice'}))
-    </script>
-
-    <script>
-      // take, find
-      const users = [
-        { age: 32 },
-        { age: 31 },
-        { age: 37 },
-        { age: 28 },
-        { age: 25 },
-        { age: 32 },
-        { age: 31 },
-        { age: 37 },
-      ];
-
-      const find = curry((fn, iter) => go(
-        iter,
-        L.filter(fn),
-        take(1),
-        ([a]) => a,
-      ));
-
-      console.log(find(u => u.age < 30)(users));
-
-      go(
-        users,
-        L.map(u => u.age),
-        find(n => n < 30),
-        console.log,
-      )
+      console.log(map(x => x + 10, range(4)));
+      console.log(filter(a => a % 2, range(4)));
     </script>
   </body>
 </html>
