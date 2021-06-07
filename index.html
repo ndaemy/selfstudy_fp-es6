@@ -8,8 +8,10 @@
     Check the console!
 
     <script>
-      console.log(map(x => x + 10, range(4)));
-      console.log(filter(a => a % 2, range(4)));
+      console.log([...[1, 2], 3, 4, ...[5, 6], ...[7, 8, 9]]);
+      const it = L.flatten([[1, 2], 3, 4, [5, 6], [7, 8, 9]]);
+      console.log([...it]);
+      console.log(flatten([[1, 2], 3, 4, [5, 6], [7, 8, 9]]));
     </script>
   </body>
 </html>
