@@ -8,16 +8,24 @@
     Check the console!
 
     <script>
-      console.log([...[1, 2], 3, 4, ...[5, 6], ...[7, 8, 9]]);
-      const it = L.flatten([[1, 2], 3, 4, [5, 6], [7, 8, 9]]);
-      console.log([...it]);
-      console.log(flatten([[1, 2], 3, 4, [5, 6], [7, 8, 9]]));
-    </script>
+      // console.log([[1, 2], [3, 4], [5, 6, 7]].flatMap(a => a));
+      // console.log([[1, 2], [3, 4], [5, 6, 7]].flatMap(a => a.map(a => a * a)));
+      // console.log(flatten([[1, 2], [3, 4], [5, 6, 7]].map(a => a.map(a => a * a))));
 
-    <script>
-      const it2 = L.deepFlat([1, [2, [3, 4], [[5]]]]);
-      console.log([...it2]);
-      console.log([...deepFlat([1, [2, [3, 4], [[5]]]])]);
+      const it = L.flatMap(a => a, [[1, 2], [3, 4], [5, 6, 7]]);
+      console.log([...it]);
+      console.log(flatMap(a => a, [[1, 2], [3, 4], [5, 6, 7]]));
+
+      console.log(flatMap(range, map(a => a + 1, [1, 2, 3])));
+
+      const it2 = L.flatMap(L.range, map(a => a + 1, [1, 2, 3]));
+      console.log(it2.next());
+      console.log(it2.next());
+      console.log(it2.next());
+      console.log(it2.next());
+      console.log(it2.next());
+
+      console.log(take(3, L.flatMap(L.range, map(a => a + 1, [1, 2, 3]))));
     </script>
   </body>
 </html>
