@@ -12,22 +12,24 @@
         setTimeout(() => callback(a + 10), 100);
       }
 
-      add10(5, res => {
+      const a = add10(5, res => {
         add10(res, res => {
           add10(res, res => {
             console.log(res);
           });
         });
       });
+      console.log(a);
 
       function add20(a) {
         return new Promise(resolve => setTimeout(() => resolve(a + 20), 100));
       }
 
-      add20(5)
+      const b = add20(5)
         .then(add20)
         .then(add20)
         .then(console.log);
+      console.log(b);
     </script>
   </body>
 </html>
