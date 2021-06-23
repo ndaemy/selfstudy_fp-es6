@@ -8,28 +8,16 @@
     Check the console!
 
     <script>
-      function add10(a, callback) {
-        setTimeout(() => callback(a + 10), 100);
-      }
+      const delay100 = a => new Promise(resolve => setTimeout(() => resolve(a), 100));
 
-      const a = add10(5, res => {
-        add10(res, res => {
-          add10(res, res => {
-            console.log(res);
-          });
-        });
-      });
-      console.log(a);
+      const go1 = (a, fn) => a instanceof Promise ? a.then(fn) :fn(a);
+      const add5 = a => a + 5;
 
-      function add20(a) {
-        return new Promise(resolve => setTimeout(() => resolve(a + 20), 100));
-      }
+      const n1 = 10;
+      go1(go1(n1, add5), console.log);
 
-      const b = add20(5)
-        .then(add20)
-        .then(add20)
-        .then(console.log);
-      console.log(b);
+      const n2 = delay100(10);
+      go1(go1(n2, add5), console.log);
     </script>
   </body>
 </html>
