@@ -7,17 +7,18 @@
   <body>
     Check the console!
 
-    <script>
-      const delay100 = a => new Promise(resolve => setTimeout(() => resolve(a), 100));
+    <script type="module">
+      const g = a => a + 1;
+      const f = a => a * a;
 
-      const go1 = (a, fn) => a instanceof Promise ? a.then(fn) :fn(a);
-      const add5 = a => a + 5;
+      console.log(f(g(1)));
+      console.log(f(g()));
 
-      const n1 = 10;
-      go1(go1(n1, add5), console.log);
+      Array.of(1).map(g).map(f).forEach(r => console.log(r));
+      [].map(g).map(f).forEach(r => console.log(r));
 
-      const n2 = delay100(10);
-      go1(go1(n2, add5), console.log);
+      Promise.resolve(2).then(g).then(f).then(r => console.log(r));
+      new Promise(resolve => setTimeout(() => resolve(2), 100)).then(g).then(f).then(r => console.log(r));
     </script>
   </body>
 </html>
