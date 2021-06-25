@@ -7,18 +7,22 @@
   <body>
     Check the console!
 
-    <script type="module">
-      const g = a => a + 1;
-      const f = a => a * a;
+    <script>
+      const users = [
+        { id: 1, name: 'aa' },
+        { id: 2, name: 'bb' },
+        { id: 3, name: 'cc' },
+      ];
 
-      console.log(f(g(1)));
-      console.log(f(g()));
+      const getUserById = id => find(u => u.id === id, users) || Promise.reject('null');
 
-      Array.of(1).map(g).map(f).forEach(r => console.log(r));
-      [].map(g).map(f).forEach(r => console.log(r));
+      const f = ({ name }) => name;
+      const g = getUserById;
+      // const fg = id => f(g(id));
 
-      Promise.resolve(2).then(g).then(f).then(r => console.log(r));
-      new Promise(resolve => setTimeout(() => resolve(2), 100)).then(g).then(f).then(r => console.log(r));
+      const fg = id => Promise.resolve(id).then(g).then(f).catch(a => a);
+
+      fg(2).then(console.log);
     </script>
   </body>
 </html>
