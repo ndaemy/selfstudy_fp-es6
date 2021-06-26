@@ -8,21 +8,13 @@
     Check the console!
 
     <script>
-      const users = [
-        { id: 1, name: 'aa' },
-        { id: 2, name: 'bb' },
-        { id: 3, name: 'cc' },
-      ];
-
-      const getUserById = id => find(u => u.id === id, users) || Promise.reject('null');
-
-      const f = ({ name }) => name;
-      const g = getUserById;
-      // const fg = id => f(g(id));
-
-      const fg = id => Promise.resolve(id).then(g).then(f).catch(a => a);
-
-      fg(2).then(console.log);
+      go(Promise.resolve(1),
+        a => a + 10,
+        a => Promise.resolve(a + 100),
+        a => a + 1000,
+        a => a + 10000,
+        console.log,
+      ).catch(a => console.log(a));
     </script>
   </body>
 </html>
